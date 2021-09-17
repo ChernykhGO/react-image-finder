@@ -32,7 +32,7 @@ export default class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.inputText !== prevState.inputText) {
-      this.setState({ images: [], page: 1 });
+      this.setState({ loading: true, images: [], page: 1 });
       this.handleLoadMore();
       //     // console.log('Change')
       //     // console.log(prevState.inputText);
