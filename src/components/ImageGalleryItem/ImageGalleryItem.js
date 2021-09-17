@@ -1,10 +1,3 @@
-// Компонент элемента списка с изображением. Создает DOM-элемент следующей
-// структуры.
-// ```html
-// <li className="ImageGalleryItem">
-//   <img src="" alt="" className="ImageGalleryItem-image" />
-// </li>
-// ```;
 import s from "./ImageGalleryItem.module.css";
 import PropTypes from "prop-types";
 

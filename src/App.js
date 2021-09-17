@@ -32,7 +32,7 @@ export default class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.inputText !== prevState.inputText) {
-      // this.setState({loading: true, images: [], page: 1})
+      this.setState({ images: [], page: 1 });
       this.handleLoadMore();
       //     // console.log('Change')
       //     // console.log(prevState.inputText);
@@ -45,7 +45,7 @@ export default class App extends Component {
       //       // console.log(this.state.page);
       //   })
       //   .catch(error => this.setState({error}))
-      //   .finally (() => this.setState({loading: false}))
+      // .finally (() => this.setState({loading: false}))
       //   },500)
     }
   }
@@ -56,7 +56,7 @@ export default class App extends Component {
   };
 
   handleLoadMore = () => {
-    this.setState({ loading: true, images: [], page: 1 });
+    this.setState({ loading: true });
     setTimeout(() => {
       pixabayApi
         .fetchApi(this.state.inputText, this.state.page + 1)

@@ -1,12 +1,6 @@
-// Список карточек изображений. Создает DOM-элемент следующей структуры.
-// ```html
-// <ul className="ImageGallery">
-//   <!-- Набор <li> с изображениями -->
-// </ul>
-// ```;
-
 import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
 import s from "./ImageGallery.module.css";
+import PropTypes from "prop-types";
 
 export default function ImageGallery({ images, onClick }) {
   // console.log(images)
@@ -24,3 +18,8 @@ export default function ImageGallery({ images, onClick }) {
     </ul>
   );
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.func,
+  onClick: PropTypes.array,
+};

@@ -1,6 +1,3 @@
-// Компонент принимает один проп `onSubmit` - функцию для передачи значения инпута
-// при сабмите формы. Создает DOM-элемент следующей структуры.
-
 import { Component } from "react";
 import { toast } from "react-toastify";
 import s from "./Searchbar.module.css";

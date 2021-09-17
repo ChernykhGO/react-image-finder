@@ -1,8 +1,3 @@
-// Компонент спинера, отображется пока идет загрузка изобаржений. Используй любой
-// готовый компонент, например
-// [react-loader-spinner](https://github.com/mhnpd/react-loader-spinner) или любой
-// другой.
-
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
