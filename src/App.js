@@ -94,7 +94,7 @@ export default class App extends Component {
         {error && <h1>{error.massege}</h1>}
         {loading && <ComponentLoader />}
         {images.length === 0 && !loading && (
-          <h1>Картинок с таким названием не найдено!</h1>
+          <h1>Картинок с таким названием не найденоoo!</h1>
         )}
         {/* {!this.state.inputText && <div>Введите имя пакемона</div>} */}
         {images && <ImageGallery images={images} onClick={this.toggleModal} />}
