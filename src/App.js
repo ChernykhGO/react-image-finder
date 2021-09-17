@@ -91,7 +91,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSubmit} />
-        {error && <h1>{error.massege}</h1>}
+        {error && <h1>{error.message}</h1>}
         {loading && <ComponentLoader />}
         {images.length === 0 && !loading && (
           <h1>Картинок с таким названием не найденоoo!</h1>
