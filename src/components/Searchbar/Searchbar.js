@@ -15,12 +15,17 @@ export default class Searchbar extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.inputText.trim() === "") {
-      // return alert('Введите  название в поиске');
-      return toast.info("Введите  название в поиске!");
+      // return alert('Введите название в поиске');
+      return toast.info("Введите название в строке поиска!");
     }
-
     this.props.onSubmit(this.state.inputText);
     this.setState({ inputText: "" });
+
+    setTimeout(() => {
+      if (this.props.images.length === 0 && !this.props.loading) {
+        return toast.info("Картинок с таким названием не найдено!");
+      }
+    }, 1000);
   };
 
   render() {

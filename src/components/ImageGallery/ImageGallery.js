@@ -20,6 +20,6 @@ export default function ImageGallery({ images, onClick }) {
 }
 
 ImageGallery.propTypes = {
-  images: PropTypes.func,
-  onClick: PropTypes.array,
+  onClick: PropTypes.func,
+  images: PropTypes.array,
 };

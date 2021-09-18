@@ -22,18 +22,34 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    // this.setState({loading: true})
+    this.setState({ loading: true });
+    // this.setState({ loading: true, images: [], page: 1 });
     pixabayApi
-      .fetchApi(this.state.inputText, this.state.page)
+      .fetchApi("yellow", this.state.page)
       .then((data) => this.setState({ images: data.hits }))
-      .catch((error) => this.setState(error));
-    // .finally (() => this.setState({loading: false}))
+      .catch((error) => this.setState(error))
+      .finally(() => this.setState({ loading: false }));
+    document.addEventListener("keydown", this.escFunction);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.inputText !== prevState.inputText) {
       this.setState({ loading: true, images: [], page: 1 });
-      this.handleLoadMore();
+      setTimeout(() => {
+        pixabayApi
+          .fetchApi(this.state.inputText, this.state.page)
+          .then((data) => {
+            if (data.hits.length > 0) {
+              this.setState({ images: data.hits });
+            }
+          })
+          .catch((error) => this.setState(error))
+          .finally(() => this.setState({ loading: false }));
+      }, 500);
+
+      if (this.state.page !== prevState.page) {
+        this.handleLoadMore();
+      }
       //     // console.log('Change')
       //     // console.log(prevState.inputText);
       //   // console.log(this.state.inputText);
@@ -57,6 +73,8 @@ export default class App extends Component {
 
   handleLoadMore = () => {
     this.setState({ loading: true });
+    // console.log(this.state.page);
+    // console.log(this.state.images);
     setTimeout(() => {
       pixabayApi
         .fetchApi(this.state.inputText, this.state.page + 1)
@@ -65,17 +83,20 @@ export default class App extends Component {
             images: [...prevState.images, ...data.hits],
             page: prevState.page + 1,
           }));
-          // console.log(this.state.images);
-          // console.log(this.prevState.images);
-          // console.log(this.state.images);
           // console.log(this.state.page);
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: "smooth",
-          });
+          // console.log(this.prevState.images);
+          // console.log(data.hits);
         })
         .catch((error) => this.setState(error))
-        .finally(() => this.setState({ loading: false }));
+        .finally(() =>
+          this.setState(
+            { loading: false },
+            window.scrollTo({
+              top: document.documentElement.scrollHeight,
+              behavior: "smooth",
+            })
+          )
+        );
     }, 500);
   };
 
@@ -86,24 +107,40 @@ export default class App extends Component {
     }));
   };
 
+  escFunction = (event) => {
+    if (event.keyCode === 27) {
+      // console.log('You pressed a "enter" key in textbox');
+      this.toggleModal();
+    }
+  };
+
   render() {
     const { images, loading, error, showModal, largeImageURL } = this.state;
     return (
       <div className="App">
-        <Searchbar onSubmit={this.handleSubmit} />
+        <Searchbar
+          onSubmit={this.handleSubmit}
+          images={images}
+          loading={loading}
+        />
         {error && <h1>{error.message}</h1>}
         {loading && <ComponentLoader />}
-        {images.length === 0 && !loading && (
-          <h1>Картинок с таким названием не найденоoo!</h1>
-        )}
-        {/* {!this.state.inputText && <div>Введите имя пакемона</div>} */}
         {images && <ImageGallery images={images} onClick={this.toggleModal} />}
         {images.length > 0 && <Button handleLoadMore={this.handleLoadMore} />}
         {showModal && (
-          <Modal onClick={this.toggleModal} largeImageURL={largeImageURL} />
+          <Modal
+            onClick={this.toggleModal}
+            largeImageURL={largeImageURL}
+            // onKeyDown={this.escFunction}
+          />
         )}
         <ToastContainer autoClose={3000} position="top-center" />
       </div>
     );
   }
 }
+
+// {/* {images.length === 0 && !loading && (
+//   <h1>Картинок с таким названием не найденоoo!</h1>
+// )} */}
+// {/* {!this.state.inputText && <div>Введите имя пакемона</div>} */}
